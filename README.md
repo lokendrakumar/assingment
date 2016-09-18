@@ -1,12 +1,9 @@
-# SAP APP
-
 
 To install run these commands  
 
 ```
-    npm install
-    bower install
-    gulp
+    cd app
+
 ```
 
 Then run this command for development
