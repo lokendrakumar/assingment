@@ -6,7 +6,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         url: '/',
         views: {
             'navbar': {
-                
                 templateUrl: 'app/views/layouts/navbar.html',
             },
             'content': {
