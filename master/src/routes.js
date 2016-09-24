@@ -6,14 +6,15 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         url: '/',
         views: {
             'navbar': {
-                templateUrl: 'views/layouts/navbar.html',
+                
+                templateUrl: 'app/views/layouts/navbar.html',
             },
             'content': {
-                templateUrl: 'views/pages/home.html',
+                templateUrl: 'app/views/pages/home.html',
                 controller:  'HomePageController',
             },
             'footer': {
-                templateUrl: 'views/layouts/footer.html'
+                templateUrl: 'app/views/layouts/footer.html'
             }
         }
     })

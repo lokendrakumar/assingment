@@ -5,14 +5,10 @@ var gulp        = require('gulp'),
     del         = require('del'),
     rev = require('gulp-rev'),
     revReplace = require('gulp-rev-replace'),
-    notify      = require('gulp-notify');
-
-
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var ngAnnotate = require('gulp-ng-annotate');
-
-
+    notify      = require('gulp-notify'),
+    uglify = require('gulp-uglify'),
+    concat = require('gulp-concat'),
+    ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('bower-js', function() {
     gulp.src(
@@ -29,23 +25,22 @@ gulp.task('bower-js', function() {
         .pipe(concat('vendors.js'))
         .pipe(ngAnnotate())
         .pipe(uglify())
-        .pipe(gulp.dest('public/scripts/'))
+        .pipe(gulp.dest('app/scripts/'))
         // .pipe(notify({ message: 'Bower components compiled' }));
 });
 
 
 gulp.task('scripts', function() {
-    gulp.src(['app/src/**/*.js'])
-        // .pipe(ngAnnotate())
-        // .pipe(uglify())
+    gulp.src(['master/src/**/*.js'])
+        .pipe(ngAnnotate())
+        .pipe(uglify())
         .pipe(concat('app.js'))
-        .pipe(gulp.dest('public/scripts/'))
+        .pipe(gulp.dest('app/scripts/'))
         // .pipe(notify({ message: 'All Scripts compiled' }));
 });
 
-
 gulp.task('styles', function() {
-    gulp.src(['app/less/style.less',
+    gulp.src(['master/less/style.less',
                 'bower_components/selectize/dist/css/selectize.default.css',
                 'bower_components/bootstrap/dist/css/bootstrap.min.css',
                 "bower_components/fontawesome/css/font-awesome.min.css",
@@ -54,26 +49,20 @@ gulp.task('styles', function() {
         .pipe(less())
         .pipe(cssnano())
         .pipe(concat('app.css'))
-        .pipe(gulp.dest('public/styles/'))
+        .pipe(gulp.dest('app/styles/'))
         // .pipe(notify({ message: 'All Styles compiled' }));
 });
-
-
-
 gulp.task('views', function() {
-    gulp.src('app/views/**/*.html')
-        .pipe(gulp.dest('public/views/'))
+    gulp.src('master/views/**/*.html')
+        .pipe(gulp.dest('app/views/'))
         // .pipe(notify({ message: 'All HTML Files compiled' }));
 });
 
-
 gulp.task('index', function() {
-    gulp.src('app/index.html')
-        .pipe(gulp.dest('public/'))
+    gulp.src('master/index.html')
+        .pipe(gulp.dest(''))
         // .pipe(notify({ message: 'Index HTML compiled' }));
 });
-
-
 /**
  * **********************************
  * @default
@@ -81,10 +70,8 @@ gulp.task('index', function() {
  * **********************************
  */
 gulp.task('default', function() {
-    gulp.start( 'bower-js', 'scripts', 'styles', 'views', 'index');
+    gulp.start( 'bower-js', 'scripts', 'styles', 'views', 'index', 'watch');
 });
-
-
 /**
  * **********************************
  * @watch
@@ -94,15 +81,14 @@ gulp.task('default', function() {
 gulp.task('watch', function() {
 
     // Watch .js files
-    gulp.watch('app/src/**', ['bower-js', 'scripts']);
+    gulp.watch('master/src/**', ['bower-js', 'scripts']);
 
     // Watch .less files
-    gulp.watch('app/less/**', ['styles']);
-
+    gulp.watch('master/less/**', ['styles']);
     // Watch views
-    gulp.watch('app/views/**', ['views']);
+    gulp.watch('master/views/**', ['views']);
 
     // Watch index file
-    gulp.watch('app/index.html', ['index']);
+    gulp.watch('master/index.html', ['index']);
 
 });
