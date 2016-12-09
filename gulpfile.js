@@ -32,8 +32,8 @@ gulp.task('bower-js', function() {
 
 gulp.task('scripts', function() {
     gulp.src(['master/src/**/*.js'])
-        .pipe(ngAnnotate())
-        .pipe(uglify())
+        // .pipe(ngAnnotate())
+        // .pipe(uglify())
         .pipe(concat('app.js'))
         .pipe(gulp.dest('app/scripts/'))
         // .pipe(notify({ message: 'All Scripts compiled' }));
